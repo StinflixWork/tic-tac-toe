@@ -1,0 +1,37 @@
+.root {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+
+  .player {
+    width: 250px;
+    overflow: hidden;
+    padding: 12px 24px;
+    border: 2px solid transparent;
+
+    font-size: 24px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    transition: all .3s ease-in-out;
+
+    &.active {
+      border-color: rgba(140, 0, 255, 0.6);
+    }
+  }
+
+  .editBtn {
+    margin-top: 2px;
+  }
+
+  .editField {
+    width: 250px;
+    padding: 12px 24px;
+    outline: none;
+
+    background-color: transparent;
+    border: 1px solid var(--text-main);
+  }
+}

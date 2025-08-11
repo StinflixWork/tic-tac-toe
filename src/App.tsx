@@ -1,7 +1,20 @@
+import { GameArea } from '@/components/GameArea'
+import { GameBoard } from '@/components/GameBoard'
+import { Player } from '@/components/Player'
+import styles from './App.module.scss'
+
 export const App = () => {
 	return (
-		<div id='app'>
-			<h1>I love you</h1>
-		</div>
+		<section className={styles.root}>
+			<GameArea>
+				<div className={styles.gameContainer}>
+					<div className={styles.players}>
+						<Player initialPlayerName='Player 1' playerSymbol='x' isActivePlayer />
+						<Player initialPlayerName='Player 2' playerSymbol='o' />
+					</div>
+					<GameBoard />
+				</div>
+			</GameArea>
+		</section>
 	)
 }
