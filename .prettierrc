@@ -12,9 +12,9 @@
     "^react",
     "^@core/(.*)$",
     "<THIRD_PARTY_MODULES>",
-    "^@pages/(.*)$",
-    "^@components/(.*)$",
-    "^@utils/(.*)$",
+    "^@/pages/(.*)$",
+    "^@/components/(.*)$",
+    "^@/utils/(.*)$",
     "^[../]",
     "^[./]"
   ],

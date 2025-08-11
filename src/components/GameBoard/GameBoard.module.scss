@@ -1,0 +1,30 @@
+.root {
+  flex: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 24px;
+
+  .square {
+    display: grid;
+    place-items: center;
+    background-color: #030303;
+
+    font-size: 72px;
+    color: var(--text-main);
+    opacity: .45;
+    text-transform: uppercase;
+
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    transition: opacity .3s ease-in-out;
+
+    &.highlighted {
+      opacity: 1;
+    }
+  }
+}

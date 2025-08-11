@@ -21,7 +21,14 @@
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+
+    /* Paths */
+    "paths": {
+      "@/*": ["../src/*"],
+      "@icons/*": ["../src/assets/icons/*"],
+      "@images/*": ["../src/assets/images/*"],
+    }
   },
   "include": [
     "../src"
