@@ -1,0 +1,24 @@
+.root {
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+
+  position: absolute;
+  top: 20px;
+  right: -140px;
+
+  .title {
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .turns {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+    text-transform: uppercase;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.6);
+  }
+}

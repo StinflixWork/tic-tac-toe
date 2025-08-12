@@ -4,43 +4,48 @@ import { Pencil, Save } from 'lucide-react'
 import styles from './Player.module.scss'
 
 interface PlayerProps {
-	initialPlayerName: string
-	playerSymbol: 'x' | 'o'
-	isActivePlayer?: boolean
+	initialName: string
+	symbol: 'x' | 'o'
+	isActive: boolean
 }
 
 export const Player = (props: PlayerProps) => {
-	const { initialPlayerName, playerSymbol, isActivePlayer = false } = props
+	const { initialName, symbol, isActive = false } = props
 
 	const [isEdit, setIsEdit] = useState(false)
-	const [playerName, setPlayerName] = useState(initialPlayerName)
-	const playerInfo = `${playerName} - ${playerSymbol}`
+	const [playerName, setPlayerName] = useState(initialName)
 
 	const handleChangePlayerName = (event: ChangeEvent<HTMLInputElement>) => {
 		const newPlayerName = event.target.value
-
 		setPlayerName(newPlayerName)
 	}
 
 	const handleToggleEdit = () => setIsEdit(wasEdit => !wasEdit)
 
+	let playerInfo = <span>{playerName}</span>
+
+	if (isEdit) {
+		playerInfo = (
+			<input
+				type='text'
+				className={styles.editField}
+				value={playerName}
+				onChange={handleChangePlayerName}
+				maxLength={10}
+				autoFocus
+			/>
+		)
+	}
+
 	return (
-		<div className={styles.root}>
-			{!isEdit && (
-				<div className={clsx(styles.player, { [styles.active]: isActivePlayer })}>{playerInfo}</div>
-			)}
-			{isEdit && (
-				<input
-					type='text'
-					className={styles.editField}
-					value={playerName}
-					onChange={handleChangePlayerName}
-					required
-				/>
-			)}
-			<button className={styles.editBtn} onClick={handleToggleEdit}>
-				{isEdit ? <Save /> : <Pencil />}
-			</button>
-		</div>
+		<li className={styles.root}>
+			<span className={styles.playerSymbol}>{symbol}</span>
+			<span className={clsx(styles.playerName, { [styles.active]: isActive })}>
+				{playerInfo}
+				<button className={styles.editBtn} onClick={handleToggleEdit}>
+					{isEdit ? <Save /> : <Pencil />}
+				</button>
+			</span>
+		</li>
 	)
 }
