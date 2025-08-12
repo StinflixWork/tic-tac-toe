@@ -8,10 +8,10 @@ export const App = () => {
 		<section className={styles.root}>
 			<GameArea>
 				<div className={styles.gameContainer}>
-					<div className={styles.players}>
+					<ol className={styles.players}>
 						<Player initialPlayerName='Player 1' playerSymbol='x' isActivePlayer />
-						<Player initialPlayerName='Player 2' playerSymbol='o' />
-					</div>
+						<Player initialPlayerName='Player 2' playerSymbol='o' isActivePlayer />
+					</ol>
 					<GameBoard />
 				</div>
 			</GameArea>
