@@ -4,16 +4,16 @@ import { Pencil, Save } from 'lucide-react'
 import styles from './Player.module.scss'
 
 interface PlayerProps {
-	initialPlayerName: string
-	playerSymbol: 'x' | 'o'
-	isActivePlayer: boolean
+	initialName: string
+	symbol: 'x' | 'o'
+	isActive: boolean
 }
 
 export const Player = (props: PlayerProps) => {
-	const { initialPlayerName, playerSymbol, isActivePlayer = false } = props
+	const { initialName, symbol, isActive = false } = props
 
 	const [isEdit, setIsEdit] = useState(false)
-	const [playerName, setPlayerName] = useState(initialPlayerName)
+	const [playerName, setPlayerName] = useState(initialName)
 
 	const handleChangePlayerName = (event: ChangeEvent<HTMLInputElement>) => {
 		const newPlayerName = event.target.value
@@ -39,8 +39,8 @@ export const Player = (props: PlayerProps) => {
 
 	return (
 		<li className={styles.root}>
-			<span className={styles.playerSymbol}>{playerSymbol}</span>
-			<span className={clsx(styles.playerName, { [styles.active]: isActivePlayer })}>
+			<span className={styles.playerSymbol}>{symbol}</span>
+			<span className={clsx(styles.playerName, { [styles.active]: isActive })}>
 				{playerInfo}
 				<button className={styles.editBtn} onClick={handleToggleEdit}>
 					{isEdit ? <Save /> : <Pencil />}

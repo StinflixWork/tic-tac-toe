@@ -1,30 +1,34 @@
 .root {
   flex: auto;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr;
   grid-template-rows: repeat(3, 1fr);
   gap: 24px;
 
-  .square {
+  .row {
     display: grid;
-    place-items: center;
-    background-color: #030303;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
 
-    font-size: 72px;
-    color: var(--text-main);
-    opacity: .45;
-    text-transform: uppercase;
+    .col {
+      .cellBtn {
+        width: 100%;
+        height: 100%;
+        display: grid;
+        place-items: center;
+        background-color: #030303;
+        opacity: .45;
 
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+        font-size: 72px;
+        color: var(--text-main);
+        text-transform: uppercase;
 
-    transition: opacity .3s ease-in-out;
+        transition: opacity .3s ease-in-out;
 
-    &.highlighted {
-      opacity: 1;
+        &.highlighted {
+          opacity: 1;
+        }
+      }
     }
   }
 }

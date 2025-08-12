@@ -1,0 +1,41 @@
+.root {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 500px;
+  background-color: var(--bg-main);
+  border-radius: 20px;
+  padding: 10px;
+
+  display: grid;
+  place-items: center;
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    row-gap: 64px;
+
+    h3 {
+      font-size: 56px;
+
+      span {
+        text-transform: uppercase;
+      }
+    }
+
+    button {
+      padding: 16px;
+      font-size: 20px;
+      border: 1px solid rgb(140, 0, 255);
+      border-radius: 10px;
+      transition: all .3s ease-in-out;
+
+      &:hover {
+        background-color: rgb(140, 0, 255);
+        box-shadow: var(--shadow-purple-neon);
+      }
+    }
+  }
+}
