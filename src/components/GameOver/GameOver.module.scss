@@ -13,15 +13,25 @@
   place-items: center;
 
   .content {
+    height: 100%;
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
     row-gap: 64px;
 
-    h3 {
-      font-size: 56px;
+    .player {
+      display: flex;
+      flex-direction: column;
+      row-gap: 8px;
+      align-items: center;
 
-      span {
-        text-transform: uppercase;
+      h3 {
+        font-size: 24px;
+      }
+
+      h2 {
+        font-size: 56px;
+        font-weight: 500;
       }
     }
 

@@ -5,13 +5,17 @@ import { GameOver } from '@/components/GameOver'
 import { Log } from '@/components/Log'
 import { Player } from '@/components/Player'
 import { deriveActivePlayer } from '@/utils/deriveActivePlayer.ts'
-import type { IGameTurn } from '@/types/common.ts'
+import type { IGameTurn, TPlayerSymbol } from '@/types/common.ts'
 import { initialGameBoard } from '@/constants/initialGameBoard.ts'
 import { WINNING_COMBINATIONS } from '@/constants/winningCombinations.ts'
 import styles from './App.module.scss'
 
 export const App = () => {
 	const [gameTurns, setGameTurns] = useState<IGameTurn[]>([])
+	const [players, setPlayers] = useState<Record<TPlayerSymbol, string>>({
+		x: 'Player 1',
+		o: 'Player 2'
+	})
 
 	const activePlayer = deriveActivePlayer(gameTurns)
 	const gameBoard = [...initialGameBoard.map(innerArray => [...innerArray])]
@@ -35,7 +39,7 @@ export const App = () => {
 			firstSquareSymbol === secondSquareSymbol &&
 			firstSquareSymbol === thirdSquareSymbol
 		) {
-			winner = firstSquareSymbol
+			winner = players[firstSquareSymbol]
 		}
 	}
 
@@ -57,6 +61,10 @@ export const App = () => {
 
 	const handleRestartGame = () => setGameTurns([])
 
+	const handlePlayerNameChange = (symbol: TPlayerSymbol, newName: string) => {
+		setPlayers(prevPlayers => ({ ...prevPlayers, [symbol]: newName }))
+	}
+
 	if (winner || hasDraw) {
 		return <GameOver winner={winner} onRestart={handleRestartGame} />
 	}
@@ -66,8 +74,18 @@ export const App = () => {
 			<GameArea>
 				<div className={styles.gameContainer}>
 					<ol className={styles.players}>
-						<Player initialName='Player 1' symbol='x' isActive={activePlayer === 'x'} />
-						<Player initialName='Player 2' symbol='o' isActive={activePlayer === 'o'} />
+						<Player
+							initialName='Player 1'
+							symbol='x'
+							onChangeName={handlePlayerNameChange}
+							isActive={activePlayer === 'x'}
+						/>
+						<Player
+							initialName='Player 2'
+							symbol='o'
+							onChangeName={handlePlayerNameChange}
+							isActive={activePlayer === 'o'}
+						/>
 					</ol>
 					<GameBoard board={gameBoard} onSelectSquare={handleChangeActivePlayer} />
 				</div>
