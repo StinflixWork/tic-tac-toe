@@ -1,4 +1,4 @@
-export type TPlayerSymbol = 'x' | 'o'
+export type TPlayerSymbol = 'X' | 'O'
 
 export type TBoardSquare = TPlayerSymbol | null
 
