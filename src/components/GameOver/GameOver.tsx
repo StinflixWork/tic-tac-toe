@@ -1,8 +1,7 @@
-import type { TPlayerSymbol } from '@/types/common.ts'
 import styles from './GameOver.module.scss'
 
 interface GameOverProps {
-	winner: TPlayerSymbol | undefined
+	winner: string | undefined
 	onRestart: () => void
 }
 
@@ -11,9 +10,10 @@ export const GameOver = ({ winner, onRestart }: GameOverProps) => {
 
 	if (winner) {
 		resultGame = (
-			<h3>
-				You won, <span>{winner}</span>!
-			</h3>
+			<div className={styles.player}>
+				<h3>You won!</h3>
+				<h2>{winner}</h2>
+			</div>
 		)
 	}
 

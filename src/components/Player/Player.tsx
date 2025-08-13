@@ -1,16 +1,18 @@
 import { type ChangeEvent, useState } from 'react'
 import { clsx } from 'clsx'
 import { Pencil, Save } from 'lucide-react'
+import type { TPlayerSymbol } from '@/types/common.ts'
 import styles from './Player.module.scss'
 
 interface PlayerProps {
 	initialName: string
-	symbol: 'x' | 'o'
+	symbol: TPlayerSymbol
 	isActive: boolean
+	onChangeName: (symbol: TPlayerSymbol, newName: string) => void
 }
 
 export const Player = (props: PlayerProps) => {
-	const { initialName, symbol, isActive = false } = props
+	const { initialName, symbol, onChangeName, isActive = false } = props
 
 	const [isEdit, setIsEdit] = useState(false)
 	const [playerName, setPlayerName] = useState(initialName)
@@ -20,7 +22,12 @@ export const Player = (props: PlayerProps) => {
 		setPlayerName(newPlayerName)
 	}
 
-	const handleToggleEdit = () => setIsEdit(wasEdit => !wasEdit)
+	const handleToggleEdit = () => {
+		setIsEdit(wasEdit => !wasEdit)
+		if (isEdit) {
+			onChangeName(symbol, playerName)
+		}
+	}
 
 	let playerInfo = <span>{playerName}</span>
 
