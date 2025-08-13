@@ -6,7 +6,7 @@ interface GameOverProps {
 }
 
 export const GameOver = ({ winner, onRestart }: GameOverProps) => {
-	let resultGame = <h3>It's a draw!</h3>
+	let resultGame = <h3 className={styles.draw}>It's a draw!</h3>
 
 	if (winner) {
 		resultGame = (
