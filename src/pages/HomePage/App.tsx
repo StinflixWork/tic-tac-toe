@@ -5,43 +5,21 @@ import { GameOver } from '@/components/GameOver'
 import { Log } from '@/components/Log'
 import { Player } from '@/components/Player'
 import { deriveActivePlayer } from '@/utils/deriveActivePlayer.ts'
+import { deriveGameBoard } from '@/utils/deriveGameBoard.ts'
+import { deriveWinner } from '@/utils/deriveWinner.ts'
 import type { IGameTurn, TPlayerSymbol } from '@/types/common.ts'
-import { initialGameBoard } from '@/constants/initialGameBoard.ts'
-import { WINNING_COMBINATIONS } from '@/constants/winningCombinations.ts'
+import { INITIAL_PLAYERS } from '@/constants/common.ts'
 import styles from './App.module.scss'
 
 export const App = () => {
 	const [gameTurns, setGameTurns] = useState<IGameTurn[]>([])
-	const [players, setPlayers] = useState<Record<TPlayerSymbol, string>>({
-		x: 'Player 1',
-		o: 'Player 2'
-	})
+	const [players, setPlayers] = useState<Record<TPlayerSymbol, string>>(INITIAL_PLAYERS)
 
 	const activePlayer = deriveActivePlayer(gameTurns)
-	const gameBoard = [...initialGameBoard.map(innerArray => [...innerArray])]
-	let winner
+	const gameBoard = deriveGameBoard(gameTurns)
+
+	const winner = deriveWinner(gameBoard, players)
 	const hasDraw = gameTurns.length === 9 && !winner
-
-	for (const turn of gameTurns) {
-		const { player, square } = turn
-		const { row, col } = square
-
-		gameBoard[row][col] = player
-	}
-
-	for (const combination of WINNING_COMBINATIONS) {
-		const firstSquareSymbol = gameBoard[combination[0].row][combination[0].column]
-		const secondSquareSymbol = gameBoard[combination[1].row][combination[1].column]
-		const thirdSquareSymbol = gameBoard[combination[2].row][combination[2].column]
-
-		if (
-			firstSquareSymbol &&
-			firstSquareSymbol === secondSquareSymbol &&
-			firstSquareSymbol === thirdSquareSymbol
-		) {
-			winner = players[firstSquareSymbol]
-		}
-	}
 
 	const handleChangeActivePlayer = (rowIndex: number, colIndex: number) => {
 		setGameTurns(prevTurns => {
@@ -59,11 +37,11 @@ export const App = () => {
 		})
 	}
 
-	const handleRestartGame = () => setGameTurns([])
-
 	const handlePlayerNameChange = (symbol: TPlayerSymbol, newName: string) => {
 		setPlayers(prevPlayers => ({ ...prevPlayers, [symbol]: newName }))
 	}
+
+	const handleRestartGame = () => setGameTurns([])
 
 	if (winner || hasDraw) {
 		return <GameOver winner={winner} onRestart={handleRestartGame} />
@@ -75,16 +53,16 @@ export const App = () => {
 				<div className={styles.gameContainer}>
 					<ol className={styles.players}>
 						<Player
-							initialName='Player 1'
-							symbol='x'
+							initialName={INITIAL_PLAYERS.X}
+							symbol='X'
 							onChangeName={handlePlayerNameChange}
-							isActive={activePlayer === 'x'}
+							isActive={activePlayer === 'X'}
 						/>
 						<Player
-							initialName='Player 2'
-							symbol='o'
+							initialName={INITIAL_PLAYERS.O}
+							symbol='O'
 							onChangeName={handlePlayerNameChange}
-							isActive={activePlayer === 'o'}
+							isActive={activePlayer === 'O'}
 						/>
 					</ol>
 					<GameBoard board={gameBoard} onSelectSquare={handleChangeActivePlayer} />
